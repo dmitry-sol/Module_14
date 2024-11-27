@@ -82,11 +82,23 @@ async def set_age(message, state):
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
     db_products = get_all_products()
-    for i in range(4):
-        with open(f'files/{db_products[i][1]}.jpg', 'rb') as img:
-            await message.answer_photo(img,
-                                       f'Название: {db_products[i][1]} | Описание: {db_products[i][2]}'
-                                       f' | Цена: {db_products[i][3]}')
+    for i in range(len(db_products)):
+        try:
+            with open(f'files/{db_products[i][1]}.jpg', 'rb') as img:
+                await message.answer_photo(
+                    img,
+                    f'Название: {db_products[i][1]} | '
+                    f'Описание: {db_products[i][2]} | '
+                    f'Цена: {db_products[i][3]}'
+               )
+        except FileNotFoundError:
+            with open(f'files/no_image.jpg', 'rb') as img:
+                await message.answer_photo(
+                    img,
+                    f'Название: {db_products[i][1]} | '
+                    f'Описание: {db_products[i][2]} | '
+                    f'Цена: {db_products[i][3]}'
+               )
     await message.answer(texts.product_choice, reply_markup=inline_kb_2)
 
 

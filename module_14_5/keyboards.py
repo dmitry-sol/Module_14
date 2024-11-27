@@ -33,7 +33,7 @@ else:
     inline_kb_2 = InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(text=f'{product[1]}', callback_data='product_buying')
-             for product in db_products[:len(db_products)]]
+             for product in db_products]
         ]
     )
 

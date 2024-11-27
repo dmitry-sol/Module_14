@@ -179,8 +179,8 @@ if __name__ == '__main__':
         ('Vitamin A', 'Для зрения', 720.99),
         ('Vitamin E', 'Для сердца', 289.50)
     ]
-    for i in range(len(products)):
-        add_product(products[i][0], products[i][1], products[i][2])
+    for product in products:
+        add_product(product[0], product[1], product[2])
 
     users = [
         ('Alfa', 'a@gmail.com', 11),
@@ -188,8 +188,8 @@ if __name__ == '__main__':
         ('Charly', 'c@gmail.com', 33),
         ('Delta', 'd@gmail.com', 44)
     ]
-    for i in range(len(users)):
-        if is_included(users[i][0]) is False:
-            add_user(users[i][0], users[i][1], users[i][2])
+    for user in users:
+        if is_included(user[0]) is False:
+            add_user(user[0], user[1], user[2])
 
     executor.start_polling(dp, skip_updates=True)

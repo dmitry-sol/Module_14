@@ -1,3 +1,4 @@
+import os
 import sqlite3
 
 
@@ -36,6 +37,11 @@ def add_product(title, description, price):
                        (title, description, price))
     connection.commit()
     connection.close()
+
+
+def get_image_path(product_name):
+    image_path = f'files/{product_name}.jpg'
+    return image_path if os.path.exists(image_path) else 'files/no_image.jpg'
 
 
 def is_included(username):

@@ -114,9 +114,6 @@ async def set_sex(call):
     await call.answer()
 
 
-
-
-
 @dp.message_handler(state=UserState.sex)
 async def set_age(message, state):
     await state.update_data(sex=message.text)

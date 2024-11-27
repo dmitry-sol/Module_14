@@ -64,12 +64,16 @@ def add_user(username, email, age):
 
 
 def get_all_products():
-    connection = sqlite3.connect('database.db')
-    cursor = connection.cursor()
-
-    cursor.execute('SELECT * FROM Products')
-    product_list = cursor.fetchall()
-
-    connection.commit()
-    connection.close()
+    try:
+        connection = sqlite3.connect('database.db')
+        cursor = connection.cursor()
+        cursor.execute('SELECT * FROM Products')
+        product_list = cursor.fetchall()
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+        product_list = []
+    finally:
+        if connection:
+            connection.commit()
+            connection.close()
     return product_list

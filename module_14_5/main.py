@@ -83,7 +83,7 @@ async def set_age(message, state):
 async def get_buying_list(message):
     db_products = get_all_products()
     for i in range(4):
-        with open(f'files/images {i + 1}.jpg', 'rb') as img:
+        with open(f'files/{db_products[i][1]}.jpg', 'rb') as img:
             await message.answer_photo(img,
                                        f'Название: {db_products[i][1]} | Описание: {db_products[i][2]}'
                                        f' | Цена: {db_products[i][3]}')

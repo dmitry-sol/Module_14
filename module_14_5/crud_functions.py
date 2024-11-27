@@ -39,6 +39,21 @@ def add_product(title, description, price):
     connection.close()
 
 
+def is_product_included(product_title):
+    connection = sqlite3.connect('database.db')
+    cursor = connection.cursor()
+
+    cursor.execute('SELECT title FROM Products WHERE title=?', (product_title,))
+    if cursor.fetchone() is not None:
+        connection.commit()
+        connection.close()
+        return True
+    else:
+        connection.commit()
+        connection.close()
+        return False
+
+
 def get_image_path(product_name):
     image_path = f'files/{product_name}.jpg'
     return image_path if os.path.exists(image_path) else 'files/no_image.jpg'

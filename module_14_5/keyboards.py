@@ -23,14 +23,19 @@ inline_kb_1.add(inline_button_2)
 inline_kb_1.add(inline_button_3)
 
 db_products = get_all_products()
-inline_kb_2 = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [InlineKeyboardButton(text=f'{db_products[0][1]}', callback_data='product_buying'),
-         InlineKeyboardButton(text=f'{db_products[1][1]}', callback_data='product_buying'),
-         InlineKeyboardButton(text=f'{db_products[2][1]}', callback_data='product_buying'),
-         InlineKeyboardButton(text=f'{db_products[3][1]}', callback_data='product_buying')],
-    ]
-)
+if not db_products:
+    inline_kb_2 = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="Нет доступных товаров", callback_data='no_products')]
+        ]
+    )
+else:
+    inline_kb_2 = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text=f'{product[1]}', callback_data='product_buying')
+             for product in db_products[:len(db_products)]]
+        ]
+    )
 
 kb_2 = ReplyKeyboardMarkup(
     keyboard=[

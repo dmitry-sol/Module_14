@@ -1,4 +1,5 @@
 import logging
+import os
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import State, StatesGroup
@@ -79,26 +80,24 @@ async def set_age(message, state):
     await state.finish()
 
 
+
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
     db_products = get_all_products()
-    for i in range(len(db_products)):
-        try:
-            with open(f'files/{db_products[i][1]}.jpg', 'rb') as img:
-                await message.answer_photo(
-                    img,
-                    f'Название: {db_products[i][1]} | '
-                    f'Описание: {db_products[i][2]} | '
-                    f'Цена: {db_products[i][3]}'
-               )
-        except FileNotFoundError:
-            with open(f'files/no_image.jpg', 'rb') as img:
-                await message.answer_photo(
-                    img,
-                    f'Название: {db_products[i][1]} | '
-                    f'Описание: {db_products[i][2]} | '
-                    f'Цена: {db_products[i][3]}'
-               )
+
+    def get_image_path(product_name):
+        image_path = f'files/{product_name}.jpg'
+        return image_path if os.path.exists(image_path) else 'files/no_image.jpg'
+
+    for product in db_products:
+        image_path = get_image_path(product[1])
+        with open(image_path, 'rb') as img:
+            await message.answer_photo(
+                img,
+                f'Название: {product[1]} | '
+                f'Описание: {product[2]} | '
+                f'Цена: {product[3]}'
+            )
     await message.answer(texts.product_choice, reply_markup=inline_kb_2)
 
 

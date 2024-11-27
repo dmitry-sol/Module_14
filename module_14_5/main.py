@@ -1,5 +1,4 @@
 import logging
-import os
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import State, StatesGroup
@@ -84,11 +83,6 @@ async def set_age(message, state):
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
     db_products = get_all_products()
-
-    def get_image_path(product_name):
-        image_path = f'files/{product_name}.jpg'
-        return image_path if os.path.exists(image_path) else 'files/no_image.jpg'
-
     for product in db_products:
         image_path = get_image_path(product[1])
         with open(image_path, 'rb') as img:

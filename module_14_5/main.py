@@ -169,12 +169,14 @@ if __name__ == '__main__':
 
     products = [
         ('Vitamin C', 'От простуды', 419.99),
-        ('Vitamin D3', 'Для сосудов', 560.00),
+        ('Vitamin B', 'Для сосудов', 560.00),
         ('Vitamin A', 'Для зрения', 720.99),
-        ('Vitamin E', 'Для сердца', 289.50)
+        ('Vitamin E', 'Для сердца', 289.50),
+        ('Vitamin K', 'Для скелета', 630.50)
     ]
     for product in products:
-        add_product(product[0], product[1], product[2])
+        if is_product_included(product[0]) is False:
+            add_product(product[0], product[1], product[2])
 
     users = [
         ('Alfa', 'a@gmail.com', 11),

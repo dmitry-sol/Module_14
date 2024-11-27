@@ -8,6 +8,7 @@ import asyncio
 from config import *
 from crud_functions import *
 import texts
+from keyboards import *
 
 logging.basicConfig(level=logging.INFO)
 
@@ -182,7 +183,5 @@ if __name__ == '__main__':
     for i in range(len(users)):
         if is_included(users[i][0]) is False:
             add_user(users[i][0], users[i][1], users[i][2])
-
-    from keyboards import *
 
     executor.start_polling(dp, skip_updates=True)
